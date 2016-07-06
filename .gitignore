@@ -7,3 +7,19 @@
 /pkg/
 /spec/reports/
 /tmp/
+
+# Ignore Apple OSX files
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.Spotlight-V100
+.Trashes
+.AppleDB
+.AppleDesktop
+.apdisk
+
+# Ignore RVM configuration files
+.rvmrc
+.ruby-version
+.ruby-gemset
