@@ -22,6 +22,7 @@ module Ketchum
 
     def initialize(format = :json)
       @format = format
+      @cache = {}
     end
 
     def method_missing(method, *args)
@@ -35,11 +36,13 @@ module Ketchum
 
     def get(resource, id = '', format = @format)
       url = "#{BASE_URL}#{resource}/#{id}"
-      response = RestClient.get(url)
+      @cache[url] = RestClient.get(url) if !cache[url]
       if format == :hash
-        response = JSON.parse(response)
+        response = JSON.parse(@cache[url])
       elsif format == :ostruct
-        response = OpenStruct.new(JSON.parse(response))
+        response = OpenStruct.new(JSON.parse(@cache[url]))
+      else
+        response = cache[url]
       end
       response
     end
